@@ -295,6 +295,7 @@ export default function App() {
             <div className="bg-[#061d3d] h-[6.531px] w-[161.631px] rounded-full" />
           </div>
         </div>
+        <BottomMenu active="chats" />
       </div>
     </div>
   );
