@@ -1,0 +1,93 @@
+:root{
+  --bm-width: 720px;
+  --bm-height: 76px;
+  --bm-radius: 38px;
+  --bm-bg-start: rgba(255,255,255,0.88);
+  --bm-bg-end: rgba(240,248,255,0.72);
+  --bm-border: rgba(255,255,255,0.6);
+  --bm-shadow: 0 20px 40px rgba(28,88,156,0.12);
+  --accent-1: #49AAFF;
+  --accent-2: #188BEF;
+  --inactive: #9AA7B8;
+}
+
+.bm-container{
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 999;
+  width: calc(min( var(--bm-width), 92vw ));
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.bm-pill{
+  width: 100%;
+  height: var(--bm-height);
+  background: linear-gradient(90deg, var(--bm-bg-start), var(--bm-bg-end));
+  border-radius: var(--bm-radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 22px;
+  gap: 18px;
+  box-shadow: var(--bm-shadow);
+  border: 1.6px solid var(--bm-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-sizing: border-box;
+}
+
+.bm-item{
+  background: transparent;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 220ms cubic-bezier(.2,.9,.2,1);
+  color: var(--inactive);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.bm-icon svg { display:block; }
+
+.bm-item--active.is-active,
+.bm-item.is-active{
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  color: white;
+  box-shadow: 0 8px 22px rgba(36,132,255,0.26), 0 2px 6px rgba(9,30,66,0.06);
+  transform: translateY(-2px);
+}
+
+.bm-item--active.is-active .bm-icon svg path,
+.bm-item--active.is-active .bm-icon svg circle,
+.bm-item--active.is-active .bm-icon svg rect {
+  fill: white !important;
+  stroke: none !important;
+}
+
+.bm-item:not(.is-active) .bm-icon svg path,
+.bm-item:not(.is-active) .bm-icon svg circle,
+.bm-item:not(.is-active) .bm-icon svg rect {
+  fill: var(--inactive);
+}
+
+.bm-item--active .bm-label{
+  color: white;
+  font-weight: 700;
+}
+
+@media (max-width:480px){
+  :root{ --bm-height: 66px; }
+  .bm-pill { padding: 8px 12px; gap: 8px; }
+  .bm-item { padding: 8px 12px; font-size: 13px; gap: 10px; }
+}
