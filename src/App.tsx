@@ -1,3 +1,4 @@
+import BottomMenu from "./components/BottomMenu";
 import { useState } from 'react';
 import { ChatPage } from './components/ChatPage';
 import svgPaths from "./imports/svg-uac8dmdq1g";
