@@ -18,7 +18,6 @@ export function ChatPage({ onBack }: ChatPageProps) {
   const [newMessage, setNewMessage] = useState('');
   const [username, setUsername] = useState('');
   const [showUsernamePrompt, setShowUsernamePrompt] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isSending, setIsSending] = useState(false);
 
@@ -124,24 +123,31 @@ export function ChatPage({ onBack }: ChatPageProps) {
 
   if (showUsernamePrompt) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white p-6">
-        <div className="w-full max-w-sm">
-          <h2 className="mb-2 text-center">به Chatloop خوش آمدید</h2>
-          <p className="mb-6 text-center opacity-70">لطفا نام کاربری خود را وارد کنید</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#49aaff] via-[#e3f2fb] to-white p-6">
+        <div className="w-full max-w-md bg-white rounded-[27.755px] p-[40px] shadow-[0px_8.163px_81.632px_0px_rgba(0,0,0,0.1)] backdrop-blur-[32.653px]">
+          <div className="text-center mb-[32px]">
+            <h2 className="font-['Helvetica_Neue:Medium',sans-serif] text-[28px] text-[#111d25] mb-[12px]">
+              به Chatloop خوش آمدید
+            </h2>
+            <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[18px] text-[#061f35] opacity-70">
+              لطفا نام کاربری خود را وارد کنید
+            </p>
+          </div>
           
-          <form onSubmit={handleUsernameSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleUsernameSubmit} className="flex flex-col gap-[20px]">
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="نام کاربری"
-              className="px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-blue-500"
+              className="px-[24px] py-[18px] border-[2px] border-[#188bef]/20 rounded-[16px] outline-none focus:border-[#188bef] font-['Helvetica_Neue:Regular',sans-serif] text-[18px] transition-colors"
               maxLength={20}
               required
+              autoFocus
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-[32px] py-[18px] bg-gradient-to-b from-[#49aaff] to-[#188bef] text-white rounded-[16px] font-['Helvetica_Neue:Medium',sans-serif] text-[18px] hover:shadow-lg active:scale-95 transition-all"
             >
               ورود به چت
             </button>
@@ -152,85 +158,131 @@ export function ChatPage({ onBack }: ChatPageProps) {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-gradient-to-b from-[rgba(24,139,239,0.1)] to-white">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-200">
-        <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-full">
-          <ArrowLeft size={20} />
-        </button>
-        <div className="flex items-center gap-3 flex-1">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
-            <span className="text-white">C</span>
+      <div className="bg-white border-b border-gray-100 px-[24px] py-[16px] shadow-sm">
+        <div className="flex items-center gap-[16px] max-w-[636px] mx-auto">
+          <button 
+            onClick={onBack} 
+            className="p-[8px] hover:bg-gray-100 rounded-full transition-colors active:scale-95"
+          >
+            <ArrowLeft size={24} className="text-[#111d25]" />
+          </button>
+          
+          <div className="flex items-center gap-[12px] flex-1">
+            <div className="bg-gradient-to-b from-[#49aaff] to-[#188bef] rounded-full size-[48px] flex items-center justify-center">
+              <span className="font-['Helvetica_Neue:Medium',sans-serif] text-[20px] text-white">C</span>
+            </div>
+            <div>
+              <h3 className="font-['Helvetica_Neue:Medium',sans-serif] text-[18px] text-[#111d25]">Chatloop</h3>
+              <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[14px] text-[#061f35] opacity-50">گروه عمومی</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-[14px]">Chatloop</h3>
-            <p className="text-[11px] opacity-50">گروه عمومی</p>
+
+          <div className="flex gap-[8px]">
+            <button className="p-[8px] hover:bg-gray-100 rounded-full transition-colors">
+              <svg className="w-[24px] h-[24px]" fill="none" viewBox="0 0 24 24">
+                <circle cx="12" cy="6" r="1.5" fill="#111d25" />
+                <circle cx="12" cy="12" r="1.5" fill="#111d25" />
+                <circle cx="12" cy="18" r="1.5" fill="#111d25" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-[24px] py-[20px] max-w-[636px] mx-auto w-full">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full opacity-50">
-            <p>هنوز پیامی ارسال نشده است</p>
-            <p className="text-[12px] mt-2">اولین پیام را ارسال کنید!</p>
+          <div className="flex flex-col items-center justify-center h-full opacity-40">
+            <svg className="w-[80px] h-[80px] mb-[20px]" fill="none" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="38" stroke="#188bef" strokeWidth="2" strokeDasharray="4 4" />
+              <path d="M40 25v30M25 40h30" stroke="#188bef" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <p className="font-['Helvetica_Neue:Medium',sans-serif] text-[20px] text-[#111d25] mb-[8px]">هنوز پیامی ارسال نشده است</p>
+            <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-[#061f35] opacity-70">اولین پیام را ارسال کنید!</p>
           </div>
         ) : (
-          messages.map((msg) => {
-            const isOwnMessage = msg.username === username;
-            return (
-              <div
-                key={msg.id}
-                className={`flex flex-col ${isOwnMessage ? 'items-end' : 'items-start'}`}
-              >
-                {!isOwnMessage && (
-                  <span className="text-[11px] opacity-50 mb-1 px-1">{msg.username}</span>
-                )}
+          <div className="space-y-[16px]">
+            {messages.map((msg) => {
+              const isOwnMessage = msg.username === username;
+              return (
                 <div
-                  className={`max-w-[70%] px-4 py-2 rounded-2xl ${
-                    isOwnMessage
-                      ? 'bg-blue-500 text-white rounded-br-sm'
-                      : 'bg-gray-100 text-gray-900 rounded-bl-sm'
-                  }`}
+                  key={msg.id}
+                  className={`flex flex-col ${isOwnMessage ? 'items-end' : 'items-start'}`}
                 >
-                  <p className="text-[13px] break-words">{msg.text}</p>
-                  <span className={`text-[10px] mt-1 block ${isOwnMessage ? 'opacity-70' : 'opacity-50'}`}>
-                    {new Date(msg.timestamp).toLocaleTimeString('fa-IR', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
+                  {!isOwnMessage && (
+                    <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[13px] text-[#061f35] opacity-50 mb-[6px] px-[8px]">
+                      {msg.username}
+                    </span>
+                  )}
+                  <div
+                    className={`max-w-[75%] px-[18px] py-[12px] ${
+                      isOwnMessage
+                        ? 'bg-gradient-to-b from-[#49aaff] to-[#188bef] text-white rounded-[20px] rounded-br-[6px]'
+                        : 'bg-white text-[#111d25] rounded-[20px] rounded-bl-[6px] shadow-sm border border-gray-100'
+                    }`}
+                  >
+                    <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[16px] break-words leading-[1.5]">
+                      {msg.text}
+                    </p>
+                    <span 
+                      className={`font-['Helvetica_Neue:Regular',sans-serif] text-[12px] mt-[6px] block ${
+                        isOwnMessage ? 'opacity-80' : 'opacity-50'
+                      }`}
+                    >
+                      {new Date(msg.timestamp).toLocaleTimeString('fa-IR', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="border-t border-gray-200 p-4">
-        <form onSubmit={handleSendMessage} className="flex gap-2">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="پیام خود را بنویسید..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-full outline-none focus:border-blue-500"
-            disabled={isSending}
-          />
-          <button
-            type="submit"
-            disabled={!newMessage.trim() || isSending}
-            className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <Send size={18} />
-          </button>
-        </form>
-        <p className="text-[10px] opacity-50 text-center mt-2">
-          شما به عنوان <span className="font-medium">{username}</span> وارد شده‌اید
-        </p>
+      {/* Input Area */}
+      <div className="bg-white border-t border-gray-100 px-[24px] py-[20px] shadow-[0px_-8px_32px_rgba(0,0,0,0.04)]">
+        <div className="max-w-[636px] mx-auto">
+          <form onSubmit={handleSendMessage} className="flex gap-[12px] items-end">
+            <div className="flex-1 bg-gray-50 rounded-[24px] px-[20px] py-[12px] border border-gray-200 focus-within:border-[#188bef] transition-colors">
+              <textarea
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage(e);
+                  }
+                }}
+                placeholder="پیام خود را بنویسید..."
+                className="w-full bg-transparent outline-none font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-[#111d25] placeholder:text-[#061f35] placeholder:opacity-40 resize-none max-h-[120px]"
+                rows={1}
+                disabled={isSending}
+                style={{ 
+                  minHeight: '24px',
+                  height: 'auto'
+                }}
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={!newMessage.trim() || isSending}
+              className="bg-gradient-to-b from-[#49aaff] to-[#188bef] size-[48px] rounded-full flex items-center justify-center hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 transition-all shrink-0"
+            >
+              <Send size={20} className="text-white" />
+            </button>
+          </form>
+          
+          <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[13px] text-[#061f35] opacity-40 text-center mt-[12px]">
+            شما به عنوان <span className="font-['Helvetica_Neue:Medium',sans-serif] text-[#188bef]">{username}</span> وارد شده‌اید
+          </p>
+        </div>
       </div>
     </div>
   );
